@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Ma Copine 💝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a0a1f 0%, #2d1b3d 25%, #4a1942 50%, #6b1e5a 75%, #8b2472 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .magic-particles {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255,255,255,0.8);
+            animation: particleFloat 20s infinite;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0,0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        .stars {
+            position: fixed; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+        }
+
+        .star {
+            position: absolute; width: 2px; height: 2px;
+            background: white; border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .container {
+            position: relative; z-index: 10;
+            min-height: 100vh; min-height: 100dvh;
+            padding: 40px 20px;
+            padding: calc(env(safe-area-inset-top, 20px) + 20px) env(safe-area-inset-right, 20px) calc(env(safe-area-inset-bottom, 20px) + 20px) env(safe-area-inset-left, 20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scrapbook-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 60px 50px;
+            max-width: 1400px;
+            width: 100%;
+            min-height: calc(100vh - 80px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 0 40px rgba(255,182,193,0.1);
+            position: relative;
+            animation: cardEntrance 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 3px solid rgba(255,182,193,0.5);
+        }
+
+        @keyframes cardEntrance {
+            0% { opacity: 0; transform: scale(0.8) rotate(-5deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        .scrapbook-card::before,
+        .scrapbook-card::after {
+            content: '💕';
+            position: absolute;
+            font-size: 3em;
+            animation: heartFloat 3s ease-in-out infinite;
+        }
+
+        .scrapbook-card::before { top: 20px; left: 20px; }
+        .scrapbook-card::after { bottom: 20px; right: 20px; animation-delay: 1.5s; }
+
+        @keyframes heartFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(10deg); }
+        }
+
+        .paper-decoration {
+            position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%);
+            width: 200px; height: 80px;
+            background: rgba(255,182,193,0.3);
+            clip-path: polygon(
+                0% 20%, 10% 0%, 20% 15%, 30% 5%,
+                40% 20%, 50% 0%, 60% 15%, 70% 5%,
+                80% 20%, 90% 0%, 100% 15%, 100% 100%, 0% 100%
+            );
+        }
+
+        .decorative-icon {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .photo-strip {
+            display: inline-block;
+            background: white;
+            padding: 15px;
+            border: 3px dashed rgba(255,20,147,0.4);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255,20,147,0.3);
+            transform: rotate(-2deg);
+            animation: stripFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes stripFloat {
+            0%, 100% { transform: rotate(-2deg) translateY(0px); }
+            50% { transform: rotate(2deg) translateY(-10px); }
+        }
+
+        .photo-strip-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mini-heart {
+            font-size: 2.5em;
+            animation: heartBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .decorative-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.4rem, 2.5vw, 2em);
+            color: #FF1493;
+            font-weight: 700;
+        }
+
+        .main-message {
+            text-align: center;
+            margin: 35px 0;
+            padding: 25px 30px;
+            background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(255,105,180,0.2));
+            border-radius: 20px;
+            border: 2px solid rgba(255,20,147,0.3);
+        }
+
+        .main-message h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5em);
+            color: #8b2472;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(255,182,193,0.5);
+            line-height: 1.4;
+        }
+
+        .main-message .sub-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.3rem, 2vw, 1.8em);
+            color: #FF1493;
+            margin-top: 12px;
+        }
+
+        /* ---- PHOTO GALLERY ---- */
+        .photo-gallery {
+            display: grid;
+            gap: 30px;
+            margin: 40px 0;
+            width: 100%;
+        }
+
+        /* Default: 3 columns (desktop) */
+        .photo-gallery { grid-template-columns: repeat(3, 1fr); }
+
+        .photo-frame {
+            position: relative;
+            background: white;
+            padding: 14px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: photoAppear 0.8s ease-out forwards;
+            opacity: 0;
+            height: 360px;
+        }
+
+        .photo-frame:nth-child(1) { animation-delay: 0.1s; transform: rotate(-3deg); }
+        .photo-frame:nth-child(2) { animation-delay: 0.15s; transform: rotate(2deg); }
+        .photo-frame:nth-child(3) { animation-delay: 0.2s; transform: rotate(-2deg); }
+        .photo-frame:nth-child(4) { animation-delay: 0.25s; transform: rotate(3deg); }
+        .photo-frame:nth-child(5) { animation-delay: 0.3s; transform: rotate(-1deg); }
+        .photo-frame:nth-child(6) { animation-delay: 0.35s; transform: rotate(2deg); }
+        .photo-frame:nth-child(7) { animation-delay: 0.4s; transform: rotate(-2deg); }
+        .photo-frame:nth-child(8) { animation-delay: 0.45s; transform: rotate(3deg); }
+        .photo-frame:nth-child(9) { animation-delay: 0.5s; transform: rotate(-1deg); }
+        .photo-frame:nth-child(10) { animation-delay: 0.55s; transform: rotate(2deg); }
+        .photo-frame:nth-child(11) { animation-delay: 0.6s; transform: rotate(-3deg); }
+        .photo-frame:nth-child(12) { animation-delay: 0.65s; transform: rotate(1deg); }
+        .photo-frame:nth-child(13) { animation-delay: 0.7s; transform: rotate(-2deg); }
+        .photo-frame:nth-child(14) { animation-delay: 0.75s; transform: rotate(2deg); }
+        .photo-frame:nth-child(15) { animation-delay: 0.8s; transform: rotate(-1deg); }
+        .photo-frame:nth-child(16) { animation-delay: 0.85s; transform: rotate(3deg); }
+        .photo-frame:nth-child(17) { animation-delay: 0.9s; transform: rotate(-2deg); }
+        .photo-frame:nth-child(18) { animation-delay: 0.95s; transform: rotate(1deg); }
+
+        @keyframes photoAppear {
+            0% { opacity: 0; transform: scale(0.8) rotate(0deg); }
+            100% { opacity: 1; }
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 0 20px 50px rgba(255,20,147,0.4);
+            z-index: 10;
+        }
+
+        .media-container {
+            width: 100%;
+            height: 322px;
+            overflow: hidden;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f8f8;
+        }
+
+        .photo-frame img,
+        .photo-frame video {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .tape {
+            position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%);
+            width: 80px; height: 25px;
+            background: rgba(255,215,0,0.3);
+            border-left: 2px solid rgba(255,215,0,0.5);
+            border-right: 2px solid rgba(255,215,0,0.5);
+        }
+
+        .sticker {
+            position: absolute;
+            font-size: 1.5em;
+            animation: stickerSpin 3s ease-in-out infinite;
+        }
+
+        .photo-frame:nth-child(odd) .sticker { bottom: 10px; right: 10px; }
+        .photo-frame:nth-child(even) .sticker { bottom: 10px; left: 10px; }
+
+        @keyframes stickerSpin {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        .video-badge {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: rgba(255,20,147,0.9);
+            color: white;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            z-index: 5;
+            box-shadow: 0 5px 15px rgba(255,20,147,0.4);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin-top: 45px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 18px 45px;
+            font-size: clamp(1.1rem, 1.8vw, 1.5em);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #FF1493, #FF69B4, #FFB6C1);
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(255,20,147,0.5), inset 0 0 20px rgba(255,255,255,0.2);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative; overflow: hidden;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            touch-action: manipulation;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .back-button:hover::before { left: 100%; }
+
+        .back-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,20,147,0.7), inset 0 0 30px rgba(255,255,255,0.3);
+        }
+
+        .falling-heart {
+            position: fixed; font-size: 30px;
+            animation: heartFall 8s linear infinite;
+            pointer-events: none; z-index: 100; opacity: 0.7;
+        }
+
+        @keyframes heartFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ---- Music control ---- */
+        .music-control {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+            border-radius: 50%; border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,20,147,0.6), 0 0 60px rgba(255,20,147,0.4);
+            z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2em;
+            transition: all 0.3s ease;
+            animation: musicButtonPulse 2s ease-in-out infinite;
+            touch-action: manipulation;
+        }
+
+        @keyframes musicButtonPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(255,20,147,0.6), 0 0 60px rgba(255,20,147,0.4); }
+            50% { transform: scale(1.1); box-shadow: 0 15px 40px rgba(255,20,147,0.8), 0 0 80px rgba(255,20,147,0.6); }
+        }
+
+        .music-control:hover {
+            transform: scale(1.15);
+            box-shadow: 0 15px 40px rgba(255,20,147,0.9), 0 0 100px rgba(255,20,147,0.7);
+        }
+
+        .music-hint {
+            position: fixed;
+            bottom: 120px; right: -70px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: hintFadeIn 1s ease-out 1s forwards;
+            opacity: 0;
+        }
+
+        .music-hint.hidden { animation: hintFadeOut 0.5s ease-out forwards; }
+
+        @keyframes hintFadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes hintFadeOut {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .hint-text {
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+            color: white; padding: 12px 20px; border-radius: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4em; font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255,20,147,0.5), inset 0 0 20px rgba(255,255,255,0.2);
+            margin-bottom: 10px; white-space: nowrap;
+            animation: hintTextBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes hintTextBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .hint-arrow {
+            font-size: 3em;
+            animation: arrowBounce 1s ease-in-out infinite;
+            filter: drop-shadow(0 5px 10px rgba(255,20,147,0.6));
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0) rotate(45deg); }
+            50% { transform: translateY(10px) rotate(45deg); }
+        }
+
+        .music-control::before,
+        .music-control::after {
+            content: '';
+            position: absolute;
+            border: 3px solid rgba(255,20,147,0.6);
+            border-radius: 50%;
+            animation: ripple 2s ease-out infinite;
+        }
+
+        .music-control::after { animation-delay: 1s; }
+
+        @keyframes ripple {
+            0% { width: 100%; height: 100%; opacity: 0.8; }
+            100% { width: 200%; height: 200%; opacity: 0; }
+        }
+
+        /* ============================================
+           IPAD 11" PRO/AIR — PORTRAIT (768–900px)
+           Grid: 2 columns
+           ============================================ */
+        @media only screen and (min-width: 768px) and (max-width: 900px) {
+            .scrapbook-card {
+                padding: 45px 30px;
+                border-radius: 24px;
+            }
+
+            .scrapbook-card::before,
+            .scrapbook-card::after { font-size: 2.2em; }
+
+            .main-message { padding: 20px 22px; margin: 25px 0; }
+            .main-message h2 { font-size: 1.9em; margin-bottom: 10px; }
+            .main-message .sub-text { font-size: 1.5em; }
+
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 22px;
+                margin: 30px 0;
+            }
+
+            .photo-frame { height: 320px; padding: 12px; }
+            .media-container { height: 288px; }
+
+            .back-button { padding: 15px 38px; font-size: 1.2em; }
+            .back-button-container { margin-top: 35px; }
+
+            .music-control { width: 62px; height: 62px; font-size: 1.8em; bottom: 22px; right: 22px; }
+            .music-hint { bottom: 100px; right: -60px; }
+        }
+
+        /* ============================================
+           IPAD 11" PRO/AIR — LANDSCAPE (901–1300px)
+           Grid: 3 columns (comfortable)
+           ============================================ */
+        @media only screen and (min-width: 901px) and (max-width: 1300px) {
+            .scrapbook-card {
+                padding: 50px 40px;
+                max-width: 1300px;
+            }
+
+            .main-message h2 { font-size: 2em; }
+
+            .photo-gallery {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px;
+                margin: 35px 0;
+            }
+
+            .photo-frame { height: 330px; }
+            .media-container { height: 296px; }
+
+            .back-button { padding: 16px 42px; font-size: 1.3em; }
+        }
+
+        /* ============================================
+           MOBILE — single column
+           ============================================ */
+        @media (max-width: 767px) {
+            .scrapbook-card {
+                padding: 40px 20px;
+                min-height: auto;
+                border-radius: 22px;
+            }
+
+            .scrapbook-card::before,
+            .scrapbook-card::after { font-size: 1.8em; }
+
+            .main-message h2 { font-size: 1.5em; }
+            .main-message .sub-text { font-size: 1.3em; }
+            .main-message { padding: 18px 16px; }
+
+            .photo-gallery {
+                grid-template-columns: 1fr;
+                gap: 22px;
+                margin: 28px 0;
+            }
+
+            .photo-frame { height: 320px; }
+            .media-container { height: 286px; }
+
+            .back-button { padding: 14px 30px; font-size: 1.1em; }
+            .back-button-container { margin-top: 28px; }
+
+            .music-control { width: 58px; height: 58px; font-size: 1.7em; bottom: 18px; right: 18px; }
+            .music-hint { bottom: 88px; right: -55px; }
+            .hint-text { font-size: 1.2em; padding: 10px 15px; }
+            .hint-arrow { font-size: 2.5em; }
+        }
+
+        @media (max-width: 375px) {
+            .scrapbook-card { padding: 30px 15px; }
+            .photo-frame { height: 280px; }
+            .media-container { height: 248px; }
+            .main-message h2 { font-size: 1.3em; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="backgroundMusic" loop>
+        <source src="musique.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="musicControl" class="music-control">🎵</button>
+
+    <div id="musicHint" class="music-hint">
+        <div class="hint-text">Clique ici pour la musique ! 💕</div>
+        <div class="hint-arrow">↘</div>
+    </div>
+
+    <div class="magic-particles" id="magicParticles"></div>
+    <div class="stars" id="starsContainer"></div>
+
+    <div class="container">
+        <div class="scrapbook-card">
+            <div class="paper-decoration"></div>
+
+            <div class="decorative-icon">
+                <div class="photo-strip">
+                    <div class="photo-strip-content">
+                        <span class="mini-heart">💝</span>
+                        <span class="decorative-text">JUST YOU !!!</span>
+                        <span class="mini-heart">💝</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-message">
+                <h2>J'ai vraiment la plus jolie</h2>
+                <h2>des copines du monde 💖</h2>
+                <p class="sub-text">Et ces photos le prouvent !</p>
+            </div>
+
+            <div class="photo-gallery">
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img1.jpeg" alt="Photo 1"></div>
+                    <span class="sticker">💕</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid1.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">✨</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img2.jpeg" alt="Photo 2"></div>
+                    <span class="sticker">💖</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid2.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">🌟</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img3.jpeg" alt="Photo 3"></div>
+                    <span class="sticker">💗</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid3.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">💝</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img4.jpeg" alt="Photo 4"></div>
+                    <span class="sticker">🎀</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid4.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">⭐</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img5.jpeg" alt="Photo 5"></div>
+                    <span class="sticker">🌸</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid5.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">🦋</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img6.jpeg" alt="Photo 6"></div>
+                    <span class="sticker">🌺</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid6.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">💫</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img7.jpeg" alt="Photo 7"></div>
+                    <span class="sticker">🌈</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid8.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">🌙</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img9.jpeg" alt="Photo 9"></div>
+                    <span class="sticker">🎵</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid14.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">🎀</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="media-container"><img src="img15.jpeg" alt="Photo 15"></div>
+                    <span class="sticker">🌻</span>
+                </div>
+                <div class="photo-frame">
+                    <div class="tape"></div>
+                    <div class="video-badge">📹 Vidéo</div>
+                    <div class="media-container"><video autoplay loop muted playsinline><source src="vid9.mp4" type="video/mp4"></video></div>
+                    <span class="sticker">💐</span>
+                </div>
+            </div>
+
+            <div class="back-button-container">
+                <a href="result.html" class="back-button">← Retour</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createMagicParticles() {
+            const container = document.getElementById('magicParticles');
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.setProperty('--tx', (Math.random() - 0.5) * 1000 + 'px');
+                particle.style.setProperty('--ty', (Math.random() - 0.5) * 1000 + 'px');
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(star);
+            }
+        }
+
+        function createFallingHearts() {
+            const hearts = ['💖', '💕', '💗', '💓', '💝'];
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 8000);
+            }, 800);
+        }
+
+        createMagicParticles();
+        createStars();
+        createFallingHearts();
+
+        document.querySelectorAll('.photo-frame').forEach(frame => {
+            frame.addEventListener('mouseenter', () => {
+                const sticker = frame.querySelector('.sticker');
+                if (sticker) {
+                    sticker.style.animation = 'none';
+                    setTimeout(() => { sticker.style.animation = 'stickerSpin 0.5s ease-in-out'; }, 10);
+                }
+            });
+        });
+
+        const music = document.getElementById('backgroundMusic');
+        const musicControl = document.getElementById('musicControl');
+        const musicHint = document.getElementById('musicHint');
+        let musicPlaying = false;
+
+        function playMusic() {
+            music.volume = 0.3;
+            music.play().then(() => {
+                musicPlaying = true;
+                musicControl.textContent = '🔊';
+                if (musicHint) {
+                    musicHint.classList.add('hidden');
+                    setTimeout(() => { musicHint.style.display = 'none'; }, 500);
+                }
+            }).catch(() => console.log('Lecture bloquée'));
+        }
+
+        function pauseMusic() {
+            music.pause();
+            musicPlaying = false;
+            musicControl.textContent = '🎵';
+        }
+
+        musicControl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            musicPlaying ? pauseMusic() : playMusic();
+        });
+
+        let scrollTimer;
+        window.addEventListener('scroll', () => {
+            if (musicHint && !musicPlaying) {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    musicHint.classList.add('hidden');
+                    setTimeout(() => { musicHint.style.display = 'none'; }, 500);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
